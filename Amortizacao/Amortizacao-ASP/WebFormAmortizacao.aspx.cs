@@ -36,6 +36,7 @@ namespace Amortizacao_ASP
 
             r[0] = new TableRow();
             r[1] = new TableRow();
+            r[2] = new TableRow();
             r[0].Controls.Add(titulo);
 
             cellNums[0] = new TableCell();
@@ -44,11 +45,23 @@ namespace Amortizacao_ASP
             cellAmor[0] = new TableCell();
             cellSaldoD[0] = new TableCell();
 
+            cellNums[1] = new TableCell();
+            cellPrest[1] = new TableCell();
+            cellJuros[1] = new TableCell();
+            cellAmor[1] = new TableCell();
+            cellSaldoD[1] = new TableCell();
+
             cellNums[0].Text = null;
             cellPrest[0].Text = "Prestação (R$)";
             cellJuros[0].Text = "Juros (R$)";
             cellAmor[0].Text = "Amortização (R$)";
             cellSaldoD[0].Text = "Saldo Devedor (R$)";
+
+            cellNums[1].Text = "0";
+            cellPrest[1].Text = null;
+            cellJuros[1].Text = null;
+            cellAmor[1].Text = null;
+            cellSaldoD[1].Text = txtMontante.Text;
 
             r[1].Controls.Add(cellNums[0]);
             r[1].Controls.Add(cellPrest[0]);
@@ -56,30 +69,39 @@ namespace Amortizacao_ASP
             r[1].Controls.Add(cellAmor[0]);
             r[1].Controls.Add(cellSaldoD[0]);
 
+            r[2].Controls.Add(cellNums[1]);
+            r[2].Controls.Add(cellPrest[1]);
+            r[2].Controls.Add(cellJuros[1]);
+            r[2].Controls.Add(cellAmor[1]);
+            r[2].Controls.Add(cellSaldoD[1]);
+
             tbtPlanilha.Controls.Add(r[0]);
             tbtPlanilha.Controls.Add(r[1]);
+            tbtPlanilha.Controls.Add(r[2]);
 
-            for (int i = 0; i < qtd; i++)
+            for (int i = 0; i < qtd+1; i++)
             {
-                r[i+2] = new TableRow();
+                r[i+3] = new TableRow();
                 cellNums[i+1] = new TableCell();
                 cellPrest[i+1] = new TableCell();
                 cellJuros[i+1] = new TableCell();
                 cellAmor[i+1] = new TableCell();
                 cellSaldoD[i+1] = new TableCell();
 
-                cellNums[i+1].Text = i.ToString();
+                if (i == qtd) cellNums[i + 1].Text = "TOTAL";
+                else cellNums[i+1].Text = (i+1).ToString();
+                cellNums[i + 1].ID = (i+1).ToString();
                 cellPrest[i+1].Text = planilha[i, 0];
                 cellJuros[i+1].Text = planilha[i, 1];
                 cellAmor[i+1].Text = planilha[i, 2];
                 cellSaldoD[i+1].Text = planilha[i, 3];
 
-                r[i+2].Controls.Add(cellNums[i+1]);
-                r[i+2].Controls.Add(cellPrest[i+1]);
-                r[i+2].Controls.Add(cellJuros[i+1]);
-                r[i+2].Controls.Add(cellAmor[i+1]);
-                r[i+2].Controls.Add(cellSaldoD[i+1]);
-                tbtPlanilha.Controls.Add(r[i+2]);
+                r[i+3].Controls.Add(cellNums[i+1]);
+                r[i+3].Controls.Add(cellPrest[i+1]);
+                r[i+3].Controls.Add(cellJuros[i+1]);
+                r[i+3].Controls.Add(cellAmor[i+1]);
+                r[i+3].Controls.Add(cellSaldoD[i+1]);
+                tbtPlanilha.Controls.Add(r[i+3]);
             }
         }
     }

@@ -53,7 +53,7 @@ namespace Amortizacao_ASP
                     total[0] += prestacao[k];
                     total[1] += juros[k];
                     total[2] += amortizacao[k];
-                    total[3] += saldoDevedor[k+1];
+                    total[3] = 0;
                 }
             };
             //price
@@ -102,19 +102,15 @@ namespace Amortizacao_ASP
         public string[,] gerarPlanilha(int qtdParcelas, int tipoAmor)
         {
             Calcular(tipoAmor);
-            string[,] matriz = new string[qtdParcelas + 2, 4];
-            matriz[0, 0] = null;
-            matriz[1, 0] = null;
-            matriz[2, 0] = null;
-            matriz[3, 0] = saldoDevedor.ToString();
-            for (int i = 0; i < qtdParcelas; i++)
+            string[,] matriz = new string[qtdParcelas + 1, 4];
+            for (int i = 0; i < qtdParcelas+1; i++)
             {
-                if (i == qtdParcelas-1)
+                if (i == qtdParcelas)
                 {
-                    matriz[0, i-1] = total[0].ToString();
-                    matriz[1, i-1] = total[1].ToString();
-                    matriz[2, i-1] = total[2].ToString();
-                    matriz[3, i-1] = total[3].ToString();
+                    matriz[i, 0] = total[0].ToString();
+                    matriz[i, 1] = total[1].ToString();
+                    matriz[i, 2] = total[2].ToString();
+                    matriz[i, 3] = total[3].ToString();
                 }
                 else
                 {
