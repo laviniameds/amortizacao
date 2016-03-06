@@ -54,9 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Amortizacao\Amortizacao.csproj">
+    <ProjectReference Include="..\Amortizacao\Amortizacao[FORM].csproj">
       <Project>{0fb26815-b9af-41c0-96cc-5196619c94e1}</Project>
-      <Name>Amortizacao</Name>
+      <Name>Amortizacao[FORM]</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

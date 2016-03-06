@@ -15,7 +15,7 @@ namespace Amortizacao
         public FormTabela()
         {
             InitializeComponent();
-            TableLayoutPanel tb = new TableLayoutPanel();
+            
                         
         }
     }
