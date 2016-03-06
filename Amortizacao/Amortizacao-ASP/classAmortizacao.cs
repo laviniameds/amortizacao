@@ -46,10 +46,10 @@ namespace Amortizacao_ASP
             {
                 for (int k = 0; k < QtdParcelas; k++)
                 {
-                    juros[k] = saldoDevedor[k] * (TaxaJuros / 100);
-                    amortizacao[k] = Montante / QtdParcelas;
-                    prestacao[k] = juros[k] + amortizacao[k];
-                    saldoDevedor[k+1] = saldoDevedor[k] - amortizacao[k];
+                    juros[k] = Math.Round(saldoDevedor[k] * (TaxaJuros / 100), 2);
+                    amortizacao[k] = Math.Round(Montante / QtdParcelas,2);
+                    prestacao[k] = Math.Round(juros[k] + amortizacao[k],2);
+                    saldoDevedor[k+1] = Math.Round(saldoDevedor[k] - amortizacao[k], 2);
                     total[0] += prestacao[k];
                     total[1] += juros[k];
                     total[2] += amortizacao[k];
@@ -59,17 +59,17 @@ namespace Amortizacao_ASP
             //price
             if (tipoAmor == 1)
             {
-                double taxaK = (TaxaJuros / 100) * Math.Pow((1 + TaxaJuros / 100), QtdParcelas);
+                double taxaK = ((TaxaJuros / 100) * Math.Pow((1 + (TaxaJuros / 100)), QtdParcelas))/((Math.Pow((1 + (TaxaJuros / 100)), QtdParcelas))-1);
                 for (int k = 0; k < QtdParcelas; k++)
                 {
-                    juros[k] = saldoDevedor[k] * (TaxaJuros / 100);
-                    prestacao[k] = taxaK * Montante;
-                    amortizacao[k] = prestacao[k] - juros[k];
-                    saldoDevedor[k + 1] = saldoDevedor[k] - amortizacao[k];
+                    prestacao[k] = Math.Round(taxaK * Montante,2);
+                    juros[k] = Math.Round((TaxaJuros / 100) * saldoDevedor[k],2);
+                    amortizacao[k] = Math.Round(prestacao[k] - juros[k],2);
+                    saldoDevedor[k + 1] = Math.Round(saldoDevedor[k] - amortizacao[k],2);
                     total[0] += prestacao[k];
                     total[1] += juros[k];
                     total[2] += amortizacao[k];
-                    total[3] += saldoDevedor[k+1];
+                    total[3] = 0;
                 }
             }
             //americano
@@ -77,24 +77,24 @@ namespace Amortizacao_ASP
             {
                 for (int k = 0; k < QtdParcelas; k++)
                 {
-                    if (k == QtdParcelas - 1)
+                    if (k == QtdParcelas-1)
                     {
-                        juros[k] = saldoDevedor[k - 1] * (TaxaJuros / 100);
-                        prestacao[k] = saldoDevedor[k - 1] + juros[k];
-                        amortizacao[k] = saldoDevedor[k - 1];
-                        saldoDevedor[k] = 0;
+                        saldoDevedor[k+1] = 0;
+                        amortizacao[k] = Math.Round(Montante,2);
+                        juros[k] = Math.Round((TaxaJuros / 100) * Montante,2);
+                        prestacao[k] = Math.Round(juros[k] + Montante,2);
                     }
                     else
                     {
-                        juros[k] = saldoDevedor[k - 1] * (TaxaJuros / 100);
-                        prestacao[k] = saldoDevedor[k] * TaxaJuros;
+                        saldoDevedor[k + 1] = Math.Round(Montante,2);
+                        juros[k] = Math.Round((TaxaJuros / 100) * Montante,2);
                         amortizacao[k] = 0;
-                        saldoDevedor[k + 1] = saldoDevedor[k] - amortizacao[k];
+                        prestacao[k] = Math.Round(juros[k],2);
                     }
                     total[0] += prestacao[k];
                     total[1] += juros[k];
-                    total[2] += amortizacao[k];
-                    total[3] += saldoDevedor[k+1];
+                    total[2] = Montante;
+                    total[3] = 0;
                 }
             }
         }

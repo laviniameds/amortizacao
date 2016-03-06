@@ -104,5 +104,10 @@ namespace Amortizacao_ASP
                 tbtPlanilha.Controls.Add(r[i+3]);
             }
         }
+
+        protected void btnExportar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -20,13 +20,13 @@
                 <td class="auto-style1">Montante:</td>
                 <td>
                     <asp:TextBox ID="txtMontante" runat="server"></asp:TextBox>
-                </td>
+                    (em R$)</td>
             </tr>
             <tr>
                 <td class="auto-style1">Taxa de juros:</td>
                 <td>
                     <asp:TextBox ID="txtTaxaJuros" runat="server"></asp:TextBox>
-                </td>
+                    (em %)</td>
             </tr>
             <tr>
                 <td class="auto-style1">Quantidade de parcelas:</td>
@@ -47,7 +47,7 @@
             <tr>
                 <td class="auto-style1">
                     <asp:Button ID="btnGerar" runat="server" Text="Gerar" OnClick="btnGerar_Click" />
-                    <asp:Button ID="btnExportar" runat="server" Text="Exportar" />
+                    <asp:Button ID="btnExportar" runat="server" Text="Exportar" OnClick="btnExportar_Click" />
                 </td>
                 <td>&nbsp;</td>
             </tr>
