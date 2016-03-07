@@ -54,13 +54,11 @@
         </table>
     
     </div>
-        <br />
-        <asp:Panel ID="Panel1" runat="server">
+        <br /><br />
+        <div>
+
             <asp:Table ID="tbtPlanilha" runat="server" GridLines="Both">
             </asp:Table>
-        </asp:Panel>
-        <br />
-        <div>
 
         </div>
     </form>

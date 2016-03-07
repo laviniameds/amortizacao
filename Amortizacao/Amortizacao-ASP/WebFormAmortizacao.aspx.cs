@@ -18,6 +18,8 @@ namespace Amortizacao_ASP
 
         }
 
+        private static Table atualTable = new Table();
+
         protected void btnGerar_Click(object sender, EventArgs e)
         {
             int qtd = Convert.ToInt32(txtQtdParc.Text);
@@ -108,17 +110,40 @@ namespace Amortizacao_ASP
                 r[i + 3].Controls.Add(cellSaldoD[i + 1]);
                 tbtPlanilha.Controls.Add(r[i + 3]);
             }
+            atualTable = tbtPlanilha;
+        }
+
+        public static string ConvertDataTableToHTML(Table tb, int limite)
+        {
+            string html = "<table>";
+            //add header row
+            html += "<tr>";
+            html += "<th>" + tb.Rows[0].Cells[0].Text + "</th>";
+            for (int i = 0; i < 5; i++)
+                html += "<th>" + tb.Rows[1].Cells[i].Text + "</th>";
+            html += "</tr>";
+            //add rows
+            for (int i = 2; i < limite; i++)
+            {
+                html += "<tr>";
+                for (int j = 0; j < 5; j++)
+                    html += "<td>" + tb.Rows[i].Cells[j].Text + "</td>";
+                html += "</tr>";
+            }
+            html += "</table>";
+            return html;
         }
 
         protected void btnExportar_Click(object sender, EventArgs e)
         {
-            Panel1.Controls.Add(this.tbtPlanilha);
+            string html = ConvertDataTableToHTML(atualTable, atualTable.Rows.Count - 2);
+            HtmlString s = new HtmlString(html);
             try
             {
                 Document pdfDoc = new Document(PageSize.A4, 25, 10, 25, 10);
                 PdfWriter pdfWriter = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
                 pdfDoc.Open();
-                Paragraph Text = new Paragraph(Panel1.ToString());
+                Paragraph Text = new Paragraph(s.ToString());
                 pdfDoc.Add(Text);
                 pdfWriter.CloseStream = false;
                 pdfDoc.Close();
