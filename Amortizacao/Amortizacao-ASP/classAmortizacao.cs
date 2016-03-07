@@ -46,10 +46,10 @@ namespace Amortizacao_ASP
             {
                 for (int k = 0; k < QtdParcelas; k++)
                 {
-                    juros[k] = Math.Round(saldoDevedor[k] * (TaxaJuros / 100), 2);
-                    amortizacao[k] = Math.Round(Montante / QtdParcelas,2);
-                    prestacao[k] = Math.Round(juros[k] + amortizacao[k],2);
-                    saldoDevedor[k+1] = Math.Round(saldoDevedor[k] - amortizacao[k], 2);
+                    juros[k] = saldoDevedor[k] * (TaxaJuros / 100);
+                    amortizacao[k] = Montante / QtdParcelas;
+                    prestacao[k] = juros[k] + amortizacao[k];
+                    saldoDevedor[k+1] = saldoDevedor[k] - amortizacao[k];
                     total[0] += prestacao[k];
                     total[1] += juros[k];
                     total[2] += amortizacao[k];
@@ -62,10 +62,10 @@ namespace Amortizacao_ASP
                 double taxaK = ((TaxaJuros / 100) * Math.Pow((1 + (TaxaJuros / 100)), QtdParcelas))/((Math.Pow((1 + (TaxaJuros / 100)), QtdParcelas))-1);
                 for (int k = 0; k < QtdParcelas; k++)
                 {
-                    prestacao[k] = Math.Round(taxaK * Montante,2);
-                    juros[k] = Math.Round((TaxaJuros / 100) * saldoDevedor[k],2);
-                    amortizacao[k] = Math.Round(prestacao[k] - juros[k],2);
-                    saldoDevedor[k + 1] = Math.Round(saldoDevedor[k] - amortizacao[k],2);
+                    prestacao[k] = taxaK * Montante;
+                    juros[k] = (TaxaJuros / 100) * saldoDevedor[k];
+                    amortizacao[k] = prestacao[k] - juros[k];
+                    saldoDevedor[k + 1] = saldoDevedor[k] - amortizacao[k];
                     total[0] += prestacao[k];
                     total[1] += juros[k];
                     total[2] += amortizacao[k];
@@ -80,16 +80,16 @@ namespace Amortizacao_ASP
                     if (k == QtdParcelas-1)
                     {
                         saldoDevedor[k+1] = 0;
-                        amortizacao[k] = Math.Round(Montante,2);
-                        juros[k] = Math.Round((TaxaJuros / 100) * Montante,2);
-                        prestacao[k] = Math.Round(juros[k] + Montante,2);
+                        amortizacao[k] = Montante;
+                        juros[k] = (TaxaJuros / 100) * Montante;
+                        prestacao[k] = juros[k] + Montante;
                     }
                     else
                     {
-                        saldoDevedor[k + 1] = Math.Round(Montante,2);
-                        juros[k] = Math.Round((TaxaJuros / 100) * Montante,2);
+                        saldoDevedor[k + 1] = Montante;
+                        juros[k] = (TaxaJuros / 100) * Montante;
                         amortizacao[k] = 0;
-                        prestacao[k] = Math.Round(juros[k],2);
+                        prestacao[k] = juros[k];
                     }
                     total[0] += prestacao[k];
                     total[1] += juros[k];
@@ -107,17 +107,17 @@ namespace Amortizacao_ASP
             {
                 if (i == qtdParcelas)
                 {
-                    matriz[i, 0] = total[0].ToString();
-                    matriz[i, 1] = total[1].ToString();
-                    matriz[i, 2] = total[2].ToString();
-                    matriz[i, 3] = total[3].ToString();
+                    matriz[i, 0] = total[0].ToString("0.00");
+                    matriz[i, 1] = total[1].ToString("0.00");
+                    matriz[i, 2] = total[2].ToString("0.00");
+                    matriz[i, 3] = total[3].ToString("0.00");
                 }
                 else
                 {
-                    matriz[i, 0] = prestacao[i].ToString();
-                    matriz[i, 1] = juros[i].ToString();
-                    matriz[i, 2] = amortizacao[i].ToString();
-                    matriz[i, 3] = saldoDevedor[i].ToString();
+                    matriz[i, 0] = prestacao[i].ToString("0.00");
+                    matriz[i, 1] = juros[i].ToString("0.00");
+                    matriz[i, 2] = amortizacao[i].ToString("0.00");
+                    matriz[i, 3] = saldoDevedor[i].ToString("0.00");
                 }
             }
             return matriz;
