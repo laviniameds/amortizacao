@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebFormAmortizacao.aspx.cs" Inherits="Amortizacao_ASP.Amortizacao" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebFormAmortizacao.aspx.cs" Inherits="Amortizacao_ASP.Amortizacao"
+    EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 
@@ -56,10 +57,9 @@
     </div>
         <br /><br />
         <div>
-
-            <asp:Table ID="tbtPlanilha" runat="server" GridLines="Both">
-            </asp:Table>
-
+            <asp:Panel ID="Panel1" runat="server">
+            <asp:Table ID="tbtPlanilha" runat="server" GridLines="Both"></asp:Table>
+            </asp:Panel>
         </div>
     </form>
 </body>

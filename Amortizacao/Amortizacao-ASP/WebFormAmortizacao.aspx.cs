@@ -33,6 +33,7 @@ namespace Amortizacao_ASP
 
             TableRow[] r = new TableRow[qtd + 4];
             TableCell titulo = new TableCell();
+            titulo.ColumnSpan = 5;
             titulo.Text = "AMORTIZAÇÃO DO TIPO " + DropAmor.SelectedItem.Text;
             TableCell[] cellNums = new TableCell[qtd + 3];
             TableCell[] cellPrest = new TableCell[qtd + 3];
@@ -113,49 +114,24 @@ namespace Amortizacao_ASP
             atualTable = tbtPlanilha;
         }
 
-        public static string ConvertDataTableToHTML(Table tb, int limite)
-        {
-            string html = "<table>";
-            //add header row
-            html += "<tr>";
-            html += "<th>" + tb.Rows[0].Cells[0].Text + "</th>";
-            for (int i = 0; i < 5; i++)
-                html += "<th>" + tb.Rows[1].Cells[i].Text + "</th>";
-            html += "</tr>";
-            //add rows
-            for (int i = 2; i < limite; i++)
-            {
-                html += "<tr>";
-                for (int j = 0; j < 5; j++)
-                    html += "<td>" + tb.Rows[i].Cells[j].Text + "</td>";
-                html += "</tr>";
-            }
-            html += "</table>";
-            return html;
-        }
-
         protected void btnExportar_Click(object sender, EventArgs e)
         {
-            string html = ConvertDataTableToHTML(atualTable, atualTable.Rows.Count - 2);
-            HtmlString s = new HtmlString(html);
-            try
-            {
-                Document pdfDoc = new Document(PageSize.A4, 25, 10, 25, 10);
-                PdfWriter pdfWriter = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-                pdfDoc.Open();
-                Paragraph Text = new Paragraph(s.ToString());
-                pdfDoc.Add(Text);
-                pdfWriter.CloseStream = false;
-                pdfDoc.Close();
-                Response.Buffer = true;
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("content-disposition", "attachment;filename=Example.pdf");
-                Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Response.Write(pdfDoc);
-                Response.End();
-            }
-            catch (Exception ex)
-            { Response.Write(ex.Message); }
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+            atualTable.Rows[0].Cells[0].ColumnSpan = 5;
+            atualTable.RenderControl(hw);
+            StringReader sr = new StringReader(sw.ToString());
+            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            pdfDoc.Open();
+            htmlparser.Parse(sr);
+            pdfDoc.Close();
+            Response.Write(pdfDoc);
+            Response.End();
         }
 
     }
