@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Drawing;
 
 namespace Amortizacao_ASP
 {
@@ -22,8 +23,8 @@ namespace Amortizacao_ASP
 
         protected void btnGerar_Click(object sender, EventArgs e)
         {
-            int qtd = Convert.ToInt32(txtQtdParc.Text);
             classAmortizacao classA = new classAmortizacao();
+            int qtd = Convert.ToInt32(txtQtdParc.Text);
             classA.Montante = Convert.ToDouble(txtMontante.Text);
             classA.QtdParcelas = qtd;
             classA.TaxaJuros = Convert.ToDouble(txtTaxaJuros.Text);
@@ -34,6 +35,8 @@ namespace Amortizacao_ASP
             TableRow[] r = new TableRow[qtd + 4];
             TableCell titulo = new TableCell();
             titulo.ColumnSpan = 5;
+            titulo.HorizontalAlign = HorizontalAlign.Center;
+            titulo.Font.Bold = true;
             titulo.Text = "AMORTIZAÇÃO DO TIPO " + DropAmor.SelectedItem.Text;
             TableCell[] cellNums = new TableCell[qtd + 3];
             TableCell[] cellPrest = new TableCell[qtd + 3];
@@ -117,11 +120,10 @@ namespace Amortizacao_ASP
         protected void btnExportar_Click(object sender, EventArgs e)
         {
             Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
+            Response.AddHeader("content-disposition", "attachment;filename=Planilha.pdf");
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             StringWriter sw = new StringWriter();
             HtmlTextWriter hw = new HtmlTextWriter(sw);
-            atualTable.Rows[0].Cells[0].ColumnSpan = 5;
             atualTable.RenderControl(hw);
             StringReader sr = new StringReader(sw.ToString());
             Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
