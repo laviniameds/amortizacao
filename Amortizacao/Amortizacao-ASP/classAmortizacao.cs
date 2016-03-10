@@ -117,7 +117,7 @@ namespace Amortizacao_ASP
                     matriz[i, 0] = prestacao[i].ToString("0.00");
                     matriz[i, 1] = juros[i].ToString("0.00");
                     matriz[i, 2] = amortizacao[i].ToString("0.00");
-                    matriz[i, 3] = saldoDevedor[i].ToString("0.00");
+                    matriz[i, 3] = saldoDevedor[i+1].ToString("0.00");
                 }
             }
             return matriz;

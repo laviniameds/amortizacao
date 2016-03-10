@@ -15,7 +15,6 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
         <table style="width:100%;">
             <tr>
                 <td class="auto-style1">Montante:</td>
