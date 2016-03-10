@@ -49,7 +49,7 @@ namespace Amortizacao_ASP
                     juros[k] = saldoDevedor[k] * (TaxaJuros / 100);
                     amortizacao[k] = Montante / QtdParcelas;
                     prestacao[k] = juros[k] + amortizacao[k];
-                    saldoDevedor[k+1] = saldoDevedor[k] - amortizacao[k];
+                    saldoDevedor[k + 1] = saldoDevedor[k] - amortizacao[k];
                     total[0] += prestacao[k];
                     total[1] += juros[k];
                     total[2] += amortizacao[k];
@@ -59,7 +59,7 @@ namespace Amortizacao_ASP
             //price
             if (tipoAmor == 1)
             {
-                double taxaK = ((TaxaJuros / 100) * Math.Pow((1 + (TaxaJuros / 100)), QtdParcelas))/((Math.Pow((1 + (TaxaJuros / 100)), QtdParcelas))-1);
+                double taxaK = ((TaxaJuros / 100) * Math.Pow((1 + (TaxaJuros / 100)), QtdParcelas)) / ((Math.Pow((1 + (TaxaJuros / 100)), QtdParcelas)) - 1);
                 for (int k = 0; k < QtdParcelas; k++)
                 {
                     prestacao[k] = taxaK * Montante;
@@ -77,9 +77,9 @@ namespace Amortizacao_ASP
             {
                 for (int k = 0; k < QtdParcelas; k++)
                 {
-                    if (k == QtdParcelas-1)
+                    if (k == QtdParcelas - 1)
                     {
-                        saldoDevedor[k+1] = 0;
+                        saldoDevedor[k + 1] = 0;
                         amortizacao[k] = Montante;
                         juros[k] = (TaxaJuros / 100) * Montante;
                         prestacao[k] = juros[k] + Montante;
@@ -102,22 +102,37 @@ namespace Amortizacao_ASP
         public string[,] gerarPlanilha(int qtdParcelas, int tipoAmor)
         {
             Calcular(tipoAmor);
-            string[,] matriz = new string[qtdParcelas + 1, 4];
-            for (int i = 0; i < qtdParcelas+1; i++)
+            string[,] matriz = new string[qtdParcelas + 3, 5];
+            matriz[0, 0] = "";
+            matriz[0, 1] = "Prestação (R$)";
+            matriz[0, 2] = "Juros (R$)";
+            matriz[0, 3] = "Amortização (R$)";
+            matriz[0, 4] = "Saldo devedor (R$)";
+            for (int i = 1; i < qtdParcelas + 3; i++)
             {
-                if (i == qtdParcelas)
+                if (i == qtdParcelas + 2)
                 {
-                    matriz[i, 0] = total[0].ToString("0.00");
-                    matriz[i, 1] = total[1].ToString("0.00");
-                    matriz[i, 2] = total[2].ToString("0.00");
-                    matriz[i, 3] = total[3].ToString("0.00");
+                    matriz[i, 0] = "TOTAL";
+                    matriz[i, 1] = total[0].ToString("0.00");
+                    matriz[i, 2] = total[1].ToString("0.00");
+                    matriz[i, 3] = total[2].ToString("0.00");
+                    matriz[i, 4] = total[3].ToString("0.00");
+                }
+                else if (i == 1)
+                {
+                    matriz[i, 0] = (i - 1).ToString();
+                    matriz[i, 1] = "";
+                    matriz[i, 2] = "";
+                    matriz[i, 3] = "";
+                    matriz[i, 4] = saldoDevedor[i - 1].ToString("0.00"); ;
                 }
                 else
                 {
-                    matriz[i, 0] = prestacao[i].ToString("0.00");
-                    matriz[i, 1] = juros[i].ToString("0.00");
-                    matriz[i, 2] = amortizacao[i].ToString("0.00");
-                    matriz[i, 3] = saldoDevedor[i+1].ToString("0.00");
+                    matriz[i, 0] = (i - 1).ToString();
+                    matriz[i, 1] = prestacao[i - 2].ToString("0.00");
+                    matriz[i, 2] = juros[i - 2].ToString("0.00");
+                    matriz[i, 3] = amortizacao[i - 2].ToString("0.00");
+                    matriz[i, 4] = saldoDevedor[i - 1].ToString("0.00");
                 }
             }
             return matriz;
