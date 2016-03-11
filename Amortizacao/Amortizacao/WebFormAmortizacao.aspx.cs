@@ -21,7 +21,7 @@ namespace Amortizacao
 
         private static Table atualTable = new Table();
 
-        private void exportarPdf()
+        private void exportarPDF()
         {
             Response.ContentType = "application/pdf";
             Response.AddHeader("content-disposition", "attachment;filename=Planilha.pdf");
@@ -104,7 +104,7 @@ namespace Amortizacao
 
         protected void btnExportar_Click(object sender, EventArgs e)
         {
-            exportarPdf();
+            exportarPDF();
         }
     }
 }
