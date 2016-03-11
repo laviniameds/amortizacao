@@ -38,6 +38,7 @@ namespace Amortizacao
         private double[] amortizacao;
         private double[] saldoDevedor;
         private double[] total = new double[4];
+
         public double[] Total
         {
             get { return total; }
