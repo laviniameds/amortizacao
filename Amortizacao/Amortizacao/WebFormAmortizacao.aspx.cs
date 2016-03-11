@@ -10,9 +10,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
 
-namespace Amortizacao_ASP
+namespace Amortizacao
 {
-    public partial class Amortizacao : System.Web.UI.Page
+    public partial class WebFormAmortizacao : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,7 +30,7 @@ namespace Amortizacao_ASP
             HtmlTextWriter hw = new HtmlTextWriter(sw);
             atualTable.RenderControl(hw);
             StringReader sr = new StringReader(sw.ToString());
-            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+            Document pdfDoc = new Document(PageSize.A4, 20f, 20f, 30f, 30f);
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
             PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             pdfDoc.Open();
@@ -48,10 +48,10 @@ namespace Amortizacao_ASP
             classA.Montante = Convert.ToDouble(txtMontante.Text);
             classA.QtdParcelas = qtd;
             classA.TaxaJuros = Convert.ToDouble(txtTaxaJuros.Text);
-            int tipoAmor = Convert.ToInt32(DropAmor.SelectedItem.Value);
+            classA.TipoAmor = DropAmor.SelectedItem.Text;
 
-            string[,] planilha = classA.gerarPlanilha(qtd, tipoAmor);
-
+            string[,] planilha = classA.gerarPlanilha(qtd);
+            
             //elementos da tabela
             TableRow[] r = new TableRow[qtd + 4];
             TableCell[] cellNums = new TableCell[qtd + 3];

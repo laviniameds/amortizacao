@@ -1,21 +1,26 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebFormAmortizacao.aspx.cs" Inherits="Amortizacao_ASP.Amortizacao"
-    EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebFormAmortizacao.aspx.cs" Inherits="Amortizacao.WebFormAmortizacao" %>
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
     <style type="text/css">
-        .auto-style1 {
-            width: 250px;
+        .style1
+        {
+            width: 295px;
+        }
+        .style2
+        {
+            width: 249px;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    <asp:Label ID="Label1" runat="server" 
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <div>
+        <asp:Label ID="Label1" runat="server" 
             Text="SISTEMA PARA GERAR TABELA DE AMORTIZAÇÃO" Font-Bold="True" 
             Font-Size="X-Large"></asp:Label>
             <br /><br />
@@ -78,10 +83,20 @@
         </table>
     
     </div>
-        <br /><br />
+        <br />
+        <br />
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <asp:Table ID="tbtPlanilha" runat="server" GridLines="Both">
+                </asp:Table>
+            </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="btnGerar" EventName="Click" />
+            </Triggers>
+        </asp:UpdatePanel>
+        <br />
         <div>
-            <asp:Table ID="tbtPlanilha" runat="server" GridLines="Both"></asp:Table>
-        </div>
+    </div>
     </form>
 </body>
 </html>

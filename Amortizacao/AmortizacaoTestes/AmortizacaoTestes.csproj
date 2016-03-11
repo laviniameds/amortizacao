@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7E6B0A00-F110-41A4-BDD4-A81C76592708}</ProjectGuid>
+    <ProjectGuid>{0D97BEB3-144F-462D-ADCC-467F382B4285}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AmortizacaoTeste</RootNamespace>
-    <AssemblyName>AmortizacaoTeste</AssemblyName>
+    <RootNamespace>AmortizacaoTestes</RootNamespace>
+    <AssemblyName>AmortizacaoTestes</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -52,6 +52,12 @@
   <ItemGroup>
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Amortizacao\Amortizacao.csproj">
+      <Project>{e314107b-fee3-449a-8bf1-7b55be725711}</Project>
+      <Name>Amortizacao</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

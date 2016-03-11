@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Amortizacao_ASP")]
+[assembly: AssemblyTitle("Amortizacao")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Amortizacao_ASP")]
+[assembly: AssemblyProduct("Amortizacao")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ed79d0a7-b3f0-485b-9f18-893631031363")]
+[assembly: Guid("8ffbe634-54a4-41c1-bf4b-78ff4532533f")]
 
 // Version information for an assembly consists of the following four values:
 //
